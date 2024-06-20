@@ -1,12 +1,12 @@
 import storage from "node-persist";
 import webPush from "web-push";
 
-export async function SaveSubscription(sub: PushSubscription) {
+export const SaveSubscription = async (sub: PushSubscription) => {
   await storage.init();
   await storage.setItem("subscription", sub);
-}
+};
 
-export async function PushNotification(content: string, delay: number = 0) {
+export const PushNotification = async (content: string, delay: number = 0) => {
   if (!process.env.VAPID_PUBLIC_KEY || !process.env.VAPID_PRIVATE_KEY) {
     console.log(
       "You must set the VAPID_PUBLIC_KEY and VAPID_PRIVATE_KEY " +
@@ -39,4 +39,4 @@ export async function PushNotification(content: string, delay: number = 0) {
         });
       });
   }, delay * 1000);
-}
+};
