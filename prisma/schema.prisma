@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model animation {
+  id            String      @id @default(uuid())
+  title         String
+  definition    String
+  description   String
+  dimension     String
+  frameRate     Int // in FPS
+  duration      Int // in seconds
+  layers        Int
+  totalFrames   Int
+  fileSize      String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
