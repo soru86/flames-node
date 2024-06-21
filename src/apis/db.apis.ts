@@ -59,9 +59,18 @@ const createAnimation = async (inputAnimation: InputAnimation) => {
   return animation;
 };
 
+const insertOfflineAnimations = async (inputAnimations: [InputAnimation]) => {
+  const data = await db.animation.createMany({
+    data: inputAnimations,
+  });
+
+  return data;
+};
+
 export {
   findAllAnimations,
   findAnimationById,
   createAnimation,
   findAnimationsByTitle,
+  insertOfflineAnimations,
 };

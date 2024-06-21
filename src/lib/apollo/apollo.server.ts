@@ -6,6 +6,7 @@ import {
   findAllAnimations,
   findAnimationById,
   findAnimationsByTitle,
+  insertOfflineAnimations,
 } from "../../apis/db.apis";
 
 export const typeDefs = `
@@ -51,6 +52,7 @@ export const typeDefs = `
 
   type Mutation {
     addAnimation(animation: InputAnimation): DBAnimation
+    syncAnimations(animations: [InputAnimation]): DBAnimation
   }
 
   input InputAnimation {
@@ -81,6 +83,8 @@ export const resolvers = {
   Mutation: {
     addAnimation: async (parent, { animation }) =>
       await createAnimation(animation),
+    syncAnimations: async (parent, { animations }) =>
+      await insertOfflineAnimations(animations),
   },
 };
 
