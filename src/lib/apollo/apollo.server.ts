@@ -8,6 +8,7 @@ import {
   findAnimationsByTitle,
   insertOfflineAnimations,
 } from "../../apis/db.apis";
+import InputAnimation from "../../types/input-animation";
 
 export const typeDefs = `
   type Animation {
@@ -71,20 +72,23 @@ export const typeDefs = `
 export const resolvers = {
   Query: {
     getAllAnimations: async () => await findAllAnimations(),
-    getAnimationById: async (parent, args, context, { variableValues }) => {
+    getAnimationById: async (_, __, ___, { variableValues }) => {
       const { animationId } = variableValues;
       return await findAnimationById(animationId);
     },
-    getAnimationsByTitle: async (parent, args, context, { variableValues }) => {
+    getAnimationsByTitle: async (_, __, ___, { variableValues }) => {
       const { title } = variableValues;
       return await findAnimationsByTitle(title);
     },
   },
   Mutation: {
-    addAnimation: async (parent, { animation }) =>
-      await createAnimation(animation),
-    syncAnimations: async (parent, { animations }) =>
-      await insertOfflineAnimations(animations),
+    addAnimation: async (_, { animation }, __, ___) => {
+      return await createAnimation(animation);
+    },
+    syncAnimations: async (_, args, __, ___) => {
+      const animations: Array<InputAnimation> = args.animations;
+      return await insertOfflineAnimations(animations);
+    },
   },
 };
 
