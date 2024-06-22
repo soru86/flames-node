@@ -40,6 +40,27 @@ To create the blank database called `dev.db`, please use below command:
 npx prisma db push
 ```
 
+The schema of DB model is as below:
+
+```javascript
+
+model animation {
+  id            String      @id @default(uuid())
+  title         String
+  definition    String
+  description   String
+  dimension     String
+  frameRate     Int // in FPS
+  duration      Int // in seconds
+  layers        Int
+  totalFrames   Int
+  fileSize      String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+```
+
 To seed the blank database with test cards, below command can be used from project root folder:
 
 ```sh
