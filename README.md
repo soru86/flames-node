@@ -33,7 +33,12 @@ To initialize the database with given schema, below command can be used from pro
 npx prisma init --datasource-provider sqlite
 ```
 
-Above command will use SLQLite as data source provider.
+Above command will use SLQLite as data source provider and also set the `DATABASE_URL` to local DB in .env file as:
+
+```sh
+DATABASE_URL="file:./dev.db"
+```
+
 To create the blank database called `dev.db`, please use below command:
 
 ```sh

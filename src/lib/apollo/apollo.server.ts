@@ -9,6 +9,7 @@ import {
   insertOfflineAnimations,
 } from "../../apis/db.apis";
 import InputAnimation from "../../types/input-animation";
+import { ApolloServerPluginCacheControl } from "@apollo/server/plugin/cacheControl";
 
 export const typeDefs = `
   type Animation {
@@ -92,5 +93,9 @@ export const resolvers = {
   },
 };
 
-const apolloServer = new ApolloServer({ typeDefs, resolvers });
+const apolloServer = new ApolloServer({
+  typeDefs,
+  resolvers,
+  plugins: [ApolloServerPluginCacheControl({ defaultMaxAge: 3 })],
+});
 export default apolloServer;
